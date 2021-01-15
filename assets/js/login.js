@@ -60,3 +60,25 @@ form.verify({
     }
     
 });
+
+
+// ----------------------   登录功能  ----------------------
+// 表单提交 -> 阻止默认行为 -> 收集表单数据（查询字符串） -> ajax提交
+$('.login form').on('submit', function (e) {
+    e.preventDefault();
+    var data = $(this).serialize();  // 必须检查name属性值
+    $.ajax({
+        type: 'POST',
+        url: '/api/login',
+        data: data,
+        success: function (res) {
+            layer.msg(res.message);
+            if (res.status === 0) {
+                // 登录成功，保存token
+                localStorage.setItem('token', res.token);
+                // 跳转到首页面 index.html
+                location.href = './index.html';
+            }
+        }
+    });
+});

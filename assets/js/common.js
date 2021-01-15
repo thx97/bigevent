@@ -26,6 +26,10 @@ $.ajaxPrefilter(function (option) {
             // 跳转到登录页
             location.href = './login.html';
         }
+        // 其他错误
+        if (res && res.status === 1) {
+            layer.msg(res.message);
+        }
     }
 
 });

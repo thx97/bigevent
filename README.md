@@ -1294,5 +1294,280 @@ $('#sure').on('click', function () {
 
 > https://www.css-js.com/tools/base64.html
 
+## 文章列表页布局
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章列表页</title>
+    <link rel="stylesheet" href="../assets/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="./css/list.css">
+</head>
+
+<body>
+
+
+    <div class="layui-card">
+        <div class="layui-card-header">文章列表</div>
+        <div class="layui-card-body">
+            <!-- 内容区一 表单搜索区 start -->
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+
+                    <div class="layui-inline">
+                        <div class="layui-input-inline" style="width: 200px;">
+                            <select name="city" lay-verify="">
+                                <option value="">请选择一个城市</option>
+                                <option value="010">北京</option>
+                                <option value="021">上海</option>
+                                <option value="0571">杭州</option>
+                            </select>
+                        </div>
+
+                        <div class="layui-input-inline" style="width: 200px;">
+                            <select name="city" lay-verify="">
+                                <option value="">请选择一个城市</option>
+                                <option value="010">北京</option>
+                                <option value="021">上海</option>
+                                <option value="0571">杭州</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <div class="layui-input-inline" style="width: 100px;">
+                            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <!-- 内容区一 表单搜索区 end -->
+
+            <!-- 内容区二 表格区 start -->
+            <table class="layui-table">
+                <colgroup>
+                    <col width="40%">
+                    <col width="15%">
+                    <col width="15%">
+                    <col width="15%">
+                    <col>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>文章标题</th>
+                        <th>分类</th>
+                        <th>发布时间</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>静夜思</td>
+                        <td>艺术</td>
+                        <td>2021-01-13 12:39:08</td>
+                        <td>已发布</td>
+                        <td>
+                            <button type="button" class="layui-btn layui-btn-xs">编辑</button>
+                            <button type="button" class="layui-btn layui-btn-xs layui-btn-danger">删除</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- 内容区二 表格区 end -->
+
+            <!-- 内容区三 分页区 start -->
+            <div id="page"></div>
+            <!-- 内容区三 分页区 end -->
+        </div>
+    </div>
+
+
+    <script src="../assets/lib/layui/layui.all.js"></script>
+    <script src="../assets/lib/jquery.js"></script>
+    <script src="../assets/lib/template-web.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="./js/list.js"></script>
+</body>
+
+</html>
+```
+
+CSS:
+
+```css
+body {
+    background-color: #f2f3f5;
+    padding: 15px;
+}
+```
+
+
+
+## 添加文章页面布局
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加文章页面</title>
+    <link rel="stylesheet" href="../assets/lib/layui/css/layui.css">
+    <link rel="stylesheet" href="../assets/lib/cropper/cropper.css">
+    <link rel="stylesheet" href="./css/add.css">
+</head>
+
+<body>
+
+    <div class="layui-card">
+        <div class="layui-card-header">发布文章</div>
+        <div class="layui-card-body">
+            <form class="layui-form" action="">
+                <!-- 第一项：标题 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">输入框</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" required lay-verify="required" placeholder="请输入标题"
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <!-- 第二项：选择分类 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">选择框</label>
+                    <div class="layui-input-block">
+                        <select name="city" lay-verify="required">
+                            <option value=""></option>
+                            <option value="0">北京</option>
+                            <option value="1">上海</option>
+                            <option value="2">广州</option>
+                            <option value="3">深圳</option>
+                            <option value="4">杭州</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- 第三项：文章内容 -->
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">文本域</label>
+                    <div class="layui-input-block">
+                        <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <!-- 第四项：封面图片 -->
+                <div class="layui-form-item">
+                    <!-- 左侧的 label -->
+                    <label class="layui-form-label">文章封面</label>
+                    <!-- 选择封面区域 -->
+                    <div class="layui-input-block cover-box">
+                        <!-- 左侧裁剪区域 -->
+                        <div class="cover-left">
+                            <img id="image" src="/assets/images/sample2.jpg" alt="" />
+                        </div>
+                        <!-- 右侧预览区域和选择封面区域 -->
+                        <div class="cover-right">
+                            <!-- 预览的区域 -->
+                            <div class="img-preview"></div>
+                            <!-- 选择封面按钮 -->
+                            <button type="button" class="layui-btn layui-btn-danger">选择封面</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 第五项：选择状态 -->
+                <div class="layui-form-item">
+                    <label class="layui-form-label">单选框</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="sex" value="男" title="男">
+                        <input type="radio" name="sex" value="女" title="女" checked>
+                    </div>
+                </div>
+                <!-- 第六项：按钮 -->
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../assets/lib/layui/layui.all.js"></script>
+    <script src="../assets/lib/jquery.js"></script>
+    <script src="../assets/lib/template-web.js"></script>
+    <!-- 加载富文本编辑器插件，按照顺序加载 -->
+    <script src="../assets/lib/tinymce/tinymce.min.js"></script>
+    <script src="../assets/lib/tinymce/tinymce_setup.js"></script>
+    <!-- 按照顺序，加载剪裁插件的js -->
+    <script src="../assets/lib/cropper/Cropper.js"></script>
+    <script src="../assets/lib/cropper/jquery-cropper.js"></script>
+    
+    <script src="../assets/js/common.js"></script>
+    <script src="./js/add.js"></script>
+</body>
+</html>
+```
+
+CSS:
+
+```css
+body {
+    background-color: #f2f3f5;
+    padding: 15px;
+}
+
+/* 封面容器的样式 */
+.cover-box {
+    display: flex;
+  }
+  
+  /* 左侧裁剪区域的样式 */
+  .cover-left {
+    width: 400px;
+    height: 280px;
+    overflow: hidden;
+    margin-right: 20px;
+  }
+  
+  /* 右侧盒子的样式 */
+  .cover-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* 预览区域的样式 */
+  .img-preview {
+    width: 200px;
+    height: 140px;
+    background-color: #ccc;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+```
+
+JS:
+
+```js
+initEditor(); // 调用函数，就会把 textarea 替换为富文本编辑器
+
+// 1. 初始化剪裁框
+// 1. 初始化图片裁剪器
+var $image = $('#image')
+
+// 2. 裁剪选项
+var options = {
+    aspectRatio: 400 / 280,
+    preview: '.img-preview'
+}
+
+// 3. 初始化裁剪区域
+$image.cropper(options)
+```
+
 
 

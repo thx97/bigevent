@@ -30,3 +30,13 @@
 .text-avatar, .layui-nav-img {
     display: none;
 }
+
+/* 内容主体区 */
+.layui-body {
+    overflow: hidden;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+}

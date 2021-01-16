@@ -1207,16 +1207,18 @@ $image.cropper(option);
 
 ```html
 <!-- 加一个隐藏的文件域 -->
-<input type="file" id="file" style="display: none;" accept="image/*">
-<button type="button" class="layui-btn">上传</button>
+<!-- multiple 控制文件是否可以多选 -->
+<input type="file" id="file" style="display: none;">
+<button type="button" class="layui-btn" id="chooseFile">选择头像</button>
+<button type="button" class="layui-btn layui-btn-danger" id="sure">确认修改</button>
 
 ```
 
 ```js
-// -------------  点击  上传  ，可以选择图片  ------------
-$('button:contains("上传")').click(function () {
-    $('#file').click();
-});
+// --------------- 2. 点击选择头像，能够实现选择图片 --------------------
+$('#chooseFile').on('click', function () {
+    $('#file').trigger('click');
+})
 
 ```
 
@@ -1234,16 +1236,19 @@ $('button:contains("上传")').click(function () {
     - 重新生成剪裁区
 
 ```js
-// 文件域的内容改变的时候，更换剪裁区的图片
-$('#file').change(function () {
-    // 3.1) 先找到文件对象
-    // console.dir(this)
-    var fileObj = this.files[0];
-    // 3.2) 为选择的图片生成一个临时的url
-    var url = URL.createObjectURL(fileObj);
-    // console.log(url);
-    // 3.3) 更换图片的src属性即可（销毁剪裁区 --> 更换src属性 --> 重新创建剪裁框）
-    $image.cropper('destroy').attr('src', url).cropper(option);
+// --------------- 3. 文件域内容改变了，能够更换剪裁区的图片 -------------
+$('#file').on('change', function () {
+    // console.log(12)
+    if (this.files.length > 0) {
+        // 3.1 找到文件对象
+        // console.dir(this);
+        var fileObj = this.files[0];
+        // 3.2 为文件对象创建临时的url
+        var url = URL.createObjectURL(fileObj);
+        // console.log(url);
+        // 3.3 更换剪裁区的图片(销毁剪裁框 --> 更换图片 --> 重新生成剪裁框)
+        $image.cropper('destroy').attr('src', url).cropper(option);
+    }
 });
 
 ```

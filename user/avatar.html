@@ -40,8 +40,10 @@
 
             <!-- 第二行的按钮区域 -->
             <div class="row2">
-                <button type="button" class="layui-btn">上传</button>
-                <button type="button" class="layui-btn layui-btn-danger">确定</button>
+                <!-- multiple 控制文件是否可以多选 -->
+                <input type="file" id="file" style="display: none;">
+                <button type="button" class="layui-btn" id="chooseFile">选择头像</button>
+                <button type="button" class="layui-btn layui-btn-danger" id="sure">确认修改</button>
             </div>
         </div>
     </div>

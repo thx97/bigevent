@@ -31,3 +31,26 @@ $('#file').on('change', function () {
         $image.cropper('destroy').attr('src', url).cropper(option);
     }
 });
+
+
+// --------------- 4. 点击确认修改按钮，实现更换头像 ------------------
+$('#sure').on('click', function () {
+    // 1. 剪裁图片，得到canvas
+    var canvas = $image.cropper('getCroppedCanvas', {width: 30, height: 30});
+    // 2. 把canvas转成base64格式字符串
+    var base64 = canvas.toDataURL();
+    // console.log(base64)
+    // 3. ajax提交即可
+    $.ajax({
+        type: 'POST',
+        url: '/my/user/avatar',
+        data: { avatar: base64 }, // { id: 1 }
+        success: function (res) {
+            layer.msg(res.message);
+            if (res.status === 0) {
+                // 更新index.html的头像
+                window.parent.getUserInfo();
+            }
+        }
+    })
+})

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- multiple 控制文件可以多选 -->
+
+    <!-- 
+        accept 控制能够选择的文件类型
+        - .jpg,.png,.gif
+        - image/png,image/gif
+        - image/*
+    -->
+
+    <input type="file" id="file" multiple accept="image/*">
+
+    <hr>
+
+    <img src="data:image/png;base64,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" alt="">
+
+    <script src="./assets/lib/jquery.js"></script>
+    <script>
+        // 当文件域的内容改变的时候，触发下面的change事件
+        $('#file').on('change', function () {
+            // console.log(123)
+
+            
+            // console.dir(this); // 能够看到DOM对象的结构
+
+            if (this.files.length > 0) {
+                // 1. 找文件对象
+                // console.log(this.files[0]);
+                var fileObj = this.files[0];
+
+                // 2. 生成临时的url
+                var url = URL.createObjectURL(fileObj);
+
+                console.log(url);
+                // 3. 实现预览
+                $('img').attr('src', url);
+            }
+
+        })
+
+
+
+        // function Person () {
+        //     this.name = '1.2.3.4.jpg';
+        //     this.size = 12423234;
+        // }
+        // var p = new Person();
+        // console.log(p);
+    </script>
+
+</body>
+</html>

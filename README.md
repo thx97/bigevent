@@ -1262,30 +1262,27 @@ $('#file').on('change', function () {
 - ajax提交即可
 
 ```js
-// ------------- 4. 点击确定按钮，剪裁图片，把图片转成base64格式，ajax提交字符串，完成更换 ----
-$('button:contains("确定")').click(function () {
-    // 4.1）调用插件方法，剪裁图片；剪裁之后得到一张canvas格式的图片
-    var canvas = $image.cropper('getCroppedCanvas', {
-        width: 100,
-        height: 100
-    });
-    // 4.2) 把canvas图片转成base64格式，得到超长字符串
-    var base64 = canvas.toDataURL('image/png');
-    // console.log(base64);
-    // 4.3) ajax提交字符串，完成更新
+// --------------- 4. 点击确认修改按钮，实现更换头像 ------------------
+$('#sure').on('click', function () {
+    // 1. 剪裁图片，得到canvas
+    var canvas = $image.cropper('getCroppedCanvas', {width: 30, height: 30});
+    // 2. 把canvas转成base64格式字符串
+    var base64 = canvas.toDataURL();
+    // console.log(base64)
+    // 3. ajax提交即可
     $.ajax({
         type: 'POST',
-        url: '/my/update/avatar',
-        data: { avatar: base64 },
+        url: '/my/user/avatar',
+        data: { avatar: base64 }, // { id: 1 }
         success: function (res) {
             layer.msg(res.message);
             if (res.status === 0) {
-                // 重新渲染父页面的头像
+                // 更新index.html的头像
                 window.parent.getUserInfo();
             }
         }
-    });
-});
+    })
+})
 ```
 
 ### 关于base64格式的图片说明

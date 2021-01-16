@@ -1,3 +1,11 @@
+<script>
+    // 马上判断，本地存储是否有token
+    if (localStorage.getItem('token') === null) {
+        // 如果没有，跳转到登录页
+        location.href = './login.html';
+    }
+</script>
+
 <!DOCTYPE html>
 <html>
 
@@ -30,7 +38,7 @@
                         <dd><a href="">更换头像</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href=""><i class="layui-icon layui-icon-logout"></i> 退出</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" id="logout"><i class="layui-icon layui-icon-logout"></i>退出</a></li>
             </ul>
         </div>
 
@@ -80,6 +88,9 @@
     </div>
     <!-- 一定要加载layui.all.js -->
     <script src="./assets/lib/layui/layui.all.js"></script>
+    <script src="./assets/lib/jquery.js"></script>
+    <script src="./assets/js/common.js"></script>
+    <script src="./assets/js/index.js"></script>
 </body>
 
 </html>

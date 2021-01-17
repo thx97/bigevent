@@ -16,7 +16,7 @@
     <div class="layui-card-header">文章列表</div>
     <div class="layui-card-body">
       <!-- 内容区一 表单搜索区 start -->
-      <form class="layui-form" action="">
+      <form class="layui-form" id="search" action="">
         <div class="layui-form-item">
 
           <div class="layui-inline">
@@ -86,7 +86,7 @@
       <td>{{item.state}}</td>
       <td>
         <button type="button" class="layui-btn layui-btn-xs">编辑</button>
-        <button type="button" class="layui-btn layui-btn-xs layui-btn-danger">删除</button>
+        <button data-id="{{item.id}}" type="button" class="layui-btn layui-btn-xs layui-btn-danger">删除</button>
       </td>
     </tr>
     {{/each}}

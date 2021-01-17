@@ -85,5 +85,66 @@ $.ajax({
     // form.render('select', 'lay-filter属性值');
     form.render('select');
   }
+});
+
+
+// 2. 完成筛选
+$('#search').on('submit', function (e) {
+  e.preventDefault();
+  // 获取两个下拉框的值
+  var cate_id = $('#category').val();
+  var state = $('#state').val();
+  // 设置ajax请求的参数
+  if (cate_id) {
+    data.cate_id = cate_id;
+  } else {
+    delete data.cate_id; // delete 用于删除对象的属性
+  }
+
+  if (state) {
+    data.state = state;
+  } else {
+    delete data.state;
+  }
+
+  // 重置页码为 1
+  data.pagenum = 1;
+
+  renderArticle(); // 调用renderArticle();渲染页面即可
+
 })
 
+
+
+
+
+// -------------------------- 删除 ------------------------------
+$('tbody').on('click', 'button:contains("删除")', function () {
+  var id = $(this).data('id');
+  var that = $(this);
+  layer.confirm('确定删除吗？', function (index) {
+
+    // 使用dom的方式删除该行
+    that.parents('tr').remove();
+
+    $.ajax({
+      // url: '/my/article/delete/2',
+      url: '/my/article/delete/' + id,
+      success: function (res) {
+        layer.msg(res.message);
+        if (res.status === 0) {
+          // 如果检测到tbody里面没有tr了。说明当前页没有数据了，所以让data.pagenum--，从而获取上一页的数据
+          if ($('tbody').children().length <= 0) {
+            // renderArticle();
+            data.pagenum--;
+            if (data.pagenum === 0) return;
+            // renderArticle();
+          }
+          renderArticle();
+        }
+      }
+    });
+
+    layer.close(index); // 关闭弹层
+  });
+})

@@ -11,4 +11,4 @@ var options = {
 }
 
 // 3. 初始化裁剪区域
-$image.cropper(options)
+$image.cropper(options);

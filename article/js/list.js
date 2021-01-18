@@ -1,3 +1,5 @@
+let { form, laypage } = layui;
+
 // 获取文章的请求参数
 var data = {
   pagenum: 1, // 表示页码值，即获取第 n 页的数据
@@ -39,7 +41,7 @@ renderArticle();
 
 
 // ---------------------------- 使用layui的分页模块 ------------------------
-var laypage = layui.laypage;
+// var laypage = layui.laypage;
 function showPage(t) {
   //执行一个laypage实例
   laypage.render({
@@ -72,7 +74,7 @@ function showPage(t) {
 
 
 // -------------------------- 筛选 ------------------------------
-var form = layui.form;
+// var form = layui.form;
 // 1. 获取真实的分类，渲染到下拉框的位置
 $.ajax({
   url: '/my/category/list',
